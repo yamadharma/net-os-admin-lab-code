@@ -1,0 +1,102 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+
+  ## Common configuration
+  config.vm.provision "common dummy",
+                      type: "shell",
+                      preserve_order: true,
+                      path: "provision/default/01-dummy.sh"
+  
+  config.vm.provision "common hostname",
+                      type: "shell",
+                      preserve_order: true,
+                      run: "always",
+                      path: "provision/default/01-hostname.sh"
+  
+  config.vm.provision "common user",
+                      type: "shell",
+                      preserve_order: true,
+                      path: "provision/default/01-user.sh"
+  
+  ## Server configuration
+  config.vm.define "server", autostart: false do |server|
+    server.vm.box = "rocky9"
+    server.vm.hostname = 'server'
+
+    server.vm.boot_timeout = 1440
+    
+    server.ssh.insert_key = false
+    server.ssh.username = 'vagrant'
+    server.ssh.password = 'vagrant'
+
+    server.vm.network :private_network,
+                      ip: "192.168.1.1",
+                      virtualbox__intnet: true
+
+    server.vm.provision "server dummy",
+                        type: "shell",
+                        preserve_order: true,
+                        path: "provision/server/01-dummy.sh"
+    
+    server.vm.provider :virtualbox do |v|
+      v.linked_clone = true
+      # Customize the amount of memory on the VM
+      v.memory = 1024
+      v.cpus = 1
+      v.name = "server"
+      # Display the VirtualBox GUI when booting the machine
+      v.gui = true
+      # Set the video memory to 12Mb
+      v.customize ["modifyvm", :id, "--vram", "12"]
+      v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+      v.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
+      v.customize ["modifyvm", :id, "--draganddrop", "bidirectional"]
+      v.customize ["modifyvm", :id, "--accelerate3d", "on"]
+    end
+  end
+
+  ## Client configuration
+  config.vm.define "client", autostart: false do |client|
+    client.vm.box = "rocky9"
+    client.vm.hostname = 'client'
+    
+    client.vm.boot_timeout = 1440
+
+    client.ssh.insert_key = false
+    client.ssh.username = 'vagrant'
+    client.ssh.password = 'vagrant'
+
+    client.vm.network :private_network,
+                      type: "dhcp",
+                      virtualbox__intnet: true
+
+    client.vm.provision "client dummy",
+                        type: "shell",
+                        preserve_order: true,
+                        path: "provision/client/01-dummy.sh"
+
+    client.vm.provision "client routing",
+                        type: "shell",
+                        preserve_order: true,
+                        run: "always",
+                        path: "provision/client/01-routing.sh"
+
+    client.vm.provider :virtualbox do |v|
+      v.linked_clone = true
+      # Customize the amount of memory on the VM
+      v.memory = 1024
+      v.cpus = 1
+      v.name = "client"
+      # Display the VirtualBox GUI when booting the machine
+      v.gui = true
+      # Set the video memory to 12Mb
+      v.customize ["modifyvm", :id, "--vram", "12"]
+      v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+      v.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
+      v.customize ["modifyvm", :id, "--draganddrop", "bidirectional"]
+      v.customize ["modifyvm", :id, "--accelerate3d", "on"]
+    end
+  end
+end
