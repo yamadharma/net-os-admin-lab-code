@@ -4,27 +4,31 @@ packer {
       source  = "github.com/hashicorp/vagrant"
       version = "~> 1"
     }
+    virtualbox = {
+      version = "~> 1"
+      source  = "github.com/hashicorp/virtualbox"
+    }
   }
 }
 
 variable "artifact_description" {
   type    = string
-  default = "Rocky 9.2"
+  default = "Rocky 9.4"
 }
 
 variable "artifact_version" {
   type    = string
-  default = "9.2"
+  default = "9.4"
 }
 
 variable "disk_size" {
   type    = string
-  default = "40960"
+  default = "61440"
 }
 
 variable "iso_checksum" {
   type    = string
-  default = "06505828e8d5d052b477af5ce62e50b938021f5c28142a327d4d5c075f0670dc"
+  default = "ee3ac97fdffab58652421941599902012179c37535aece76824673105169c4a2"
 }
 
 variable "iso_checksum_type" {
@@ -34,7 +38,7 @@ variable "iso_checksum_type" {
 
 variable "iso_url" {
   type    = string
-  default = "Rocky-9.2-x86_64-minimal.iso"
+  default = "Rocky-9.4-x86_64-minimal.iso"
 }
 
 variable "redhat_platform" {

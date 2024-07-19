@@ -1,5 +1,7 @@
 .PHONY: version
 
+all: help
+
 help:
 	@echo 'Usage:'
 	@echo '  make <target>'
