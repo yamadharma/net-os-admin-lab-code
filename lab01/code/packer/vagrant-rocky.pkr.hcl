@@ -108,7 +108,7 @@ build {
       "sleep 30",
       "sudo dnf -y install epel-release",
       "sudo dnf -y groupinstall 'Development Tools'",
-      "sudo dnf -y install kernel-devel",
+      "sudo dnf -y install kernel-devel kernel-modules",
       "sudo dnf -y install dkms",
       "sudo mkdir /tmp/vboxguest",
       "sudo mount -t iso9660 -o loop /home/vagrant/VBoxGuestAdditions.iso /tmp/vboxguest",
