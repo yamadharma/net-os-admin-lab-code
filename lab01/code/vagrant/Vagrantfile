@@ -70,7 +70,7 @@ Vagrant.configure("2") do |config|
     client.ssh.password = 'vagrant'
 
     client.vm.network :private_network,
-                      type: "dhcp",
+                      ip: "192.168.1.100",
                       virtualbox__intnet: true
 
     client.vm.provision "client dummy",
