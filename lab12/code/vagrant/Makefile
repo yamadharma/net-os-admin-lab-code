@@ -1,5 +1,7 @@
 .PHONY: version
 
+all: help
+
 help:
 	@echo 'Usage:'
 	@echo '  make <target>'
@@ -15,27 +17,32 @@ plugins:	## Install plugins
 addbox:	## Add the built box to Vagrant
 	@export VAGRANT_HOME="`pwd`"/.vagrant.d; export VAGRANT_DOTFILE_PATH="`pwd`"/.vagrant; vagrant box add rocky9 vagrant-virtualbox-rocky-9-x86_64.box
 
-up: plugins     ## Up boxies
-	@VBoxManage setproperty machinefolder "`pwd`"/vm
-	@export VAGRANT_HOME="`pwd`"/.vagrant.d; export VAGRANT_DOTFILE_PATH="`pwd`"/.vagrant; export VBOX_USER_HOME="`pwd`"/.vbox; export VBOX_INSTALL_PATH="`pwd`"/vm; vagrant up
-	@VBoxManage setproperty machinefolder default
-
-server-up: plugins	## Up server
+server-up: plugins	## Start server
 	@VBoxManage setproperty machinefolder "`pwd`"/vm
 	@export VAGRANT_HOME="`pwd`"/.vagrant.d; export VAGRANT_DOTFILE_PATH="`pwd`"/.vagrant; export VBOX_USER_HOME="`pwd`"/.vbox; export VBOX_INSTALL_PATH="`pwd`"/vm; vagrant up server
 	@VBoxManage setproperty machinefolder default
 
-client-up: plugins	## Up client
+client-up: plugins	## Start client
 	@VBoxManage setproperty machinefolder "`pwd`"/vm
 	@export VAGRANT_HOME="`pwd`"/.vagrant.d; export VAGRANT_DOTFILE_PATH="`pwd`"/.vagrant; export VBOX_USER_HOME="`pwd`"/.vbox; export VBOX_INSTALL_PATH="`pwd`"/vm; vagrant up client
 	@VBoxManage setproperty machinefolder default
 
-server-provision: plugins	## Up and provision server
+server-halt: plugins	## Stop server
+	@VBoxManage setproperty machinefolder "`pwd`"/vm
+	@export VAGRANT_HOME="`pwd`"/.vagrant.d; export VAGRANT_DOTFILE_PATH="`pwd`"/.vagrant; export VBOX_USER_HOME="`pwd`"/.vbox; export VBOX_INSTALL_PATH="`pwd`"/vm; vagrant halt server
+	@VBoxManage setproperty machinefolder default
+
+client-halt: plugins	## Stop client
+	@VBoxManage setproperty machinefolder "`pwd`"/vm
+	@export VAGRANT_HOME="`pwd`"/.vagrant.d; export VAGRANT_DOTFILE_PATH="`pwd`"/.vagrant; export VBOX_USER_HOME="`pwd`"/.vbox; export VBOX_INSTALL_PATH="`pwd`"/vm; vagrant halt client
+	@VBoxManage setproperty machinefolder default
+
+server-provision: plugins	## Start and provision server
 	@VBoxManage setproperty machinefolder "`pwd`"/vm
 	@export VAGRANT_HOME="`pwd`"/.vagrant.d; export VAGRANT_DOTFILE_PATH="`pwd`"/.vagrant; export VBOX_USER_HOME="`pwd`"/.vbox; export VBOX_INSTALL_PATH="`pwd`"/vm; vagrant up server --provision
 	@VBoxManage setproperty machinefolder default
 
-client-provision: plugins	## Up and provision client
+client-provision: plugins	## Start and provision client
 	@VBoxManage setproperty machinefolder "`pwd`"/vm
 	@export VAGRANT_HOME="`pwd`"/.vagrant.d; export VAGRANT_DOTFILE_PATH="`pwd`"/.vagrant; export VBOX_USER_HOME="`pwd`"/.vbox; export VBOX_INSTALL_PATH="`pwd`"/vm; vagrant up client --provision
 	@VBoxManage setproperty machinefolder default
