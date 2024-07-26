@@ -40,11 +40,6 @@ Vagrant.configure("2") do |config|
                         preserve_order: true,
                         path: "provision/server/01-dummy.sh"
 
-    server.vm.provision "enable forwarding",
-                        type: "shell",
-                        preserve_order: true,
-                        path: "provision/server/02-forward.sh"
-    
     server.vm.provider :virtualbox do |v|
       v.linked_clone = true
       # Customize the amount of memory on the VM

@@ -123,6 +123,7 @@ build {
       "sudo dnf -y groupinstall 'Server with GUI'",
       "sudo dnf install -y mc htop tmux",
       "sudo systemctl set-default graphical.target",
+      "sudo dnf -y update",
       "echo Image Provisioned!"
     ]
   }
