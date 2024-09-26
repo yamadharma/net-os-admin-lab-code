@@ -19,12 +19,12 @@ addbox:	## Add the built box to Vagrant
 
 server-up: plugins	## Start server
 	@VBoxManage setproperty machinefolder "`pwd`"/vm
-	@export VAGRANT_HOME="`pwd`"/.vagrant.d; export VAGRANT_DOTFILE_PATH="`pwd`"/.vagrant; export VBOX_USER_HOME="`pwd`"/.vbox; export VBOX_INSTALL_PATH="`pwd`"/vm; vagrant up server
+	@export VAGRANT_HOME="`pwd`"/.vagrant.d; export VAGRANT_DOTFILE_PATH="`pwd`"/.vagrant; export VBOX_USER_HOME="`pwd`"/.vbox; export VBOX_INSTALL_PATH="`pwd`"/vm; vagrant up --provider=virtualbox server
 	@VBoxManage setproperty machinefolder default
 
 client-up: plugins	## Start client
 	@VBoxManage setproperty machinefolder "`pwd`"/vm
-	@export VAGRANT_HOME="`pwd`"/.vagrant.d; export VAGRANT_DOTFILE_PATH="`pwd`"/.vagrant; export VBOX_USER_HOME="`pwd`"/.vbox; export VBOX_INSTALL_PATH="`pwd`"/vm; vagrant up client
+	@export VAGRANT_HOME="`pwd`"/.vagrant.d; export VAGRANT_DOTFILE_PATH="`pwd`"/.vagrant; export VBOX_USER_HOME="`pwd`"/.vbox; export VBOX_INSTALL_PATH="`pwd`"/vm; vagrant up --provider=virtualbox client
 	@VBoxManage setproperty machinefolder default
 
 server-halt: plugins	## Stop server
@@ -39,12 +39,12 @@ client-halt: plugins	## Stop client
 
 server-provision: plugins	## Start and provision server
 	@VBoxManage setproperty machinefolder "`pwd`"/vm
-	@export VAGRANT_HOME="`pwd`"/.vagrant.d; export VAGRANT_DOTFILE_PATH="`pwd`"/.vagrant; export VBOX_USER_HOME="`pwd`"/.vbox; export VBOX_INSTALL_PATH="`pwd`"/vm; vagrant up server --provision
+	@export VAGRANT_HOME="`pwd`"/.vagrant.d; export VAGRANT_DOTFILE_PATH="`pwd`"/.vagrant; export VBOX_USER_HOME="`pwd`"/.vbox; export VBOX_INSTALL_PATH="`pwd`"/vm; vagrant up --provider=virtualbox server --provision
 	@VBoxManage setproperty machinefolder default
 
 client-provision: plugins	## Start and provision client
 	@VBoxManage setproperty machinefolder "`pwd`"/vm
-	@export VAGRANT_HOME="`pwd`"/.vagrant.d; export VAGRANT_DOTFILE_PATH="`pwd`"/.vagrant; export VBOX_USER_HOME="`pwd`"/.vbox; export VBOX_INSTALL_PATH="`pwd`"/vm; vagrant up client --provision
+	@export VAGRANT_HOME="`pwd`"/.vagrant.d; export VAGRANT_DOTFILE_PATH="`pwd`"/.vagrant; export VBOX_USER_HOME="`pwd`"/.vbox; export VBOX_INSTALL_PATH="`pwd`"/vm; vagrant up --provider=virtualbox client --provision
 	@VBoxManage setproperty machinefolder default
 
 server-destroy:	## Destroy server
