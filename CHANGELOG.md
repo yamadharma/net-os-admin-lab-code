@@ -1,3 +1,12 @@
+## [1.0.2](https://github.com/yamadharma/net-os-admin-lab-code/compare/v1.0.1...v1.0.2) (2024-09-26)
+
+
+### Bug Fixes
+
+* **makefile:** fix for virtualbox-7.1 ([0a58033](https://github.com/yamadharma/net-os-admin-lab-code/commit/0a58033caba77bac2efd90698a3a41cb649b24c0))
+
+
+
 ## 1.0.1 (2024-07-26)
 
 
