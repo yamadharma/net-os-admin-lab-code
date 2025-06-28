@@ -2,15 +2,19 @@
 
 all: help
 
+
 init: ## Install missing plugins for packer
 	@mkdir -p ""`pwd`"/.config/packer/plugins"
 	@export PACKER_CONFIG_DIR=""`pwd`"/.config/packer"; export PACKER_PLUGIN_PATH=""`pwd`"/.config/packer/plugins"; packer init vagrant-rocky.pkr.hcl
 
-box:	init    ## Build box for Rocky Linux
+virtualbox:	init    ## Build Rocky Linux box for Virtualbox
 	-@VBoxManage setproperty language C
 	@VBoxManage setproperty machinefolder "`pwd`"/vm
-	@export TMPDIR=""`pwd`""; export PACKER_CONFIG_DIR=""`pwd`"/.config/packer"; export PACKER_PLUGIN_PATH=""`pwd`"/.config/packer/plugins"; packer build -only=virtualbox-iso.virtualbox vagrant-rocky.pkr.hcl
+	@export TMPDIR=""`pwd`""; export PACKER_CONFIG_DIR=""`pwd`"/.config/packer"; export PACKER_PLUGIN_PATH=""`pwd`"/.config/packer/plugins"; packer build -only=virtualbox-iso.rockylinux vagrant-rocky.pkr.hcl
 	@VBoxManage setproperty machinefolder default
+
+qemu:	init    ## Build Rocky Linux box for Qemu
+	@export TMPDIR=""`pwd`""; export PACKER_CONFIG_DIR=""`pwd`"/.config/packer"; export PACKER_PLUGIN_PATH=""`pwd`"/.config/packer/plugins"; packer build -only=qemu.rockylinux vagrant-rocky.pkr.hcl
 
 help:
 	@echo 'Usage:'
