@@ -83,14 +83,14 @@ source "qemu" "rockylinux" {
   boot_wait               = "10s"
   disk_size               = "${var.disk_size}"
   http_directory          = "${path.root}/${var.http_directory}"
-  iso_checksum     	  = "${var.iso_checksum_type}:${var.iso_checksum}"
+  iso_checksum            = "${var.iso_checksum_type}:${var.iso_checksum}"
   iso_url                 = "${var.iso_url}"
-  output_directory        = "output-rockylinux-${var.redhat_release}-qemu"
+  output_directory        = "output-rockylinux${var.redhat_release}-qemu"
   format                  = "qcow2"
   ssh_password            = "${var.ssh_password}"
   ssh_username            = "${var.ssh_username}"
   ssh_timeout             = "60m"
-  vm_name                 = "rockylinux-${var.redhat_release}-qemu"
+  vm_name                 = "rockylinux${var.redhat_release}-qemu"
   net_device              = "virtio-net"
   disk_interface          = "virtio"
   # headless                = true
@@ -136,11 +136,10 @@ source "virtualbox-iso" "rockylinux" {
   ]
   guest_additions_path    = "VBoxGuestAdditions.iso"
   guest_os_type           = "RedHat_64"
-  # hard_drive_interface    = "sata"
-  http_directory          = "${path.root}/${var.http_directory}"
+  http_directory          = "${var.http_directory}"
   iso_checksum            = "${var.iso_checksum_type}:${var.iso_checksum}"
   iso_url                 = "${var.iso_url}"
-  output_directory        = "output-rockylinux-${var.redhat_release}-virtualbox"
+  output_directory        = "output-rockylinux${var.redhat_release}-virtualbox"
   shutdown_command        = "sudo -S /sbin/halt -h -p"
   shutdown_timeout        = "5m"
   ssh_password            = "${var.ssh_password}"
@@ -148,13 +147,16 @@ source "virtualbox-iso" "rockylinux" {
   ssh_port                = 22
   ssh_pty                 = true
   ssh_timeout             = "60m"
+  iso_interface           = "sata"
+  headless                = true
   vboxmanage              = [
-    ["modifyvm", "{{.Name}}", "--memory", "2048"],
-    ["modifyvm", "{{.Name}}", "--cpus", "2"],
-    ["modifyvm", "{{.Name}}", "--nat-localhostreachable1", "on"]
+    [ "modifyvm", "{{.Name}}", "--memory", "2048" ],
+    [ "modifyvm", "{{.Name}}", "--cpus", "2" ],
+    [ "modifyvm", "{{.Name}}", "--nat-localhostreachable1", "on" ],
+    [ "modifyvm", "{{.Name}}", "--firmware", "EFI" ]
   ]
   virtualbox_version_file = ".vbox_version"
-  vm_name                 = "rockylinux-${var.redhat_release}-virtualbox"
+  vm_name                 = "rockylinux${var.redhat_release}-virtualbox"
 }
 
 build {
@@ -179,6 +181,6 @@ build {
 
   post-processor "vagrant" {
     compression_level = "6"
-    output            = "vagrant-{{ .Provider }}-rockylinux-${var.redhat_release}-${var.redhat_platform}.box"
+    output            = "vagrant-{{ .Provider }}-rockylinux${var.redhat_release}-${var.redhat_platform}.box"
   }
 }
