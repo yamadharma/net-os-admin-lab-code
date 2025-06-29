@@ -1,8 +1,5 @@
 #!/bin/sh
 
-# Обновление системы
-sudo dnf -y update
-
 # Дополнительные репозитории
 sudo dnf -y install epel-release
 

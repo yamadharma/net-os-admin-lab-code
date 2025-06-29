@@ -170,10 +170,10 @@ build {
     scripts         = ["scripts/vagrant.sh", "scripts/software.sh"]
   }
 
-  provisioner "shell" {
-    only           = ["virtualbox-iso.rockylinux"]
-    script         = "scripts/virtualbox.sh"
-  }
+  # provisioner "shell" {
+  #   only           = ["virtualbox-iso.rockylinux"]
+  #   script         = "scripts/virtualbox.sh"
+  # }
 
   provisioner "shell" {
     script         = "scripts/cleanup.sh"

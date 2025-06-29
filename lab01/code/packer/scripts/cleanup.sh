@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Обновление системы
+sudo dnf -y update
+
 dnf -y clean all
 
 # Remove Virtualbox specific files
