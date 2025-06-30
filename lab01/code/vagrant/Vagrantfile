@@ -6,6 +6,23 @@ Vagrant.configure("2") do |config|
   config.vagrant.plugins = "vagrant-libvirt"
   config.vagrant.plugins = "vagrant-vbguest"
 
+  config.vm.provider :virtualbox do |virtualbox|
+    virtualbox.linked_clone = true
+    # Customize the amount of memory on the VM
+    virtualbox.memory = 2048
+    virtualbox.cpus = 2
+    ## Display the VirtualBox GUI when booting the machine
+    virtualbox.gui = false
+    ## Set the video memory to 12Mb
+    virtualbox.customize ["modifyvm", :id, "--vram", "32"]
+    virtualbox.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+    virtualbox.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
+    virtualbox.customize ["modifyvm", :id, "--draganddrop", "bidirectional"]
+    virtualbox.customize ["modifyvm", :id, "--graphicscontroller", "vmsvga"]
+    virtualbox.customize ["modifyvm", :id, "--accelerate3d", "on"]
+    virtualbox.customize ["modifyvm", :id, "--nested-hw-virt", "on"]
+  end
+
   config.vm.provider :libvirt do |libvirt|
     libvirt.driver = "kvm"
     libvirt.memory = 2048
@@ -17,22 +34,6 @@ Vagrant.configure("2") do |config|
     libvirt.management_network_address = "192.168.121.0/24"
     libvirt.storage_pool_name = "vagrant"
     # libvirt.storage_pool_name = "default"
-  end
-
-  config.vm.provider :virtualbox do |virtualbox|
-    virtualbox.linked_clone = true
-    # Customize the amount of memory on the VM
-    virtualbox.memory = 2048
-    virtualbox.cpus = 2
-    # Display the VirtualBox GUI when booting the machine
-    virtualbox.gui = true
-    # Set the video memory to 12Mb
-    virtualbox.customize ["modifyvm", :id, "--vram", "12"]
-    virtualbox.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
-    virtualbox.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
-    virtualbox.customize ["modifyvm", :id, "--draganddrop", "bidirectional"]
-    virtualbox.customize ["modifyvm", :id, "--graphicscontroller", "vmsvga"]
-    virtualbox.customize ["modifyvm", :id, "--accelerate3d", "on"]
   end
 
   ## Common configuration
@@ -67,6 +68,11 @@ Vagrant.configure("2") do |config|
                       ip: "192.168.1.1",
                       virtualbox__intnet: true
 
+    server.vm.provider :virtualbox do |virtualbox|
+      virtualbox.customize ["modifyvm", :id, "--vrde", "on"]
+      virtualbox.customize ["modifyvm", :id, "--vrdeport", "3391"]
+    end
+
     server.vm.provision "server dummy",
                         type: "shell",
                         preserve_order: true,
@@ -88,6 +94,11 @@ Vagrant.configure("2") do |config|
     client.vm.network :private_network,
                       type: "dhcp",
                       virtualbox__intnet: true
+
+    client.vm.provider :virtualbox do |virtualbox|
+      virtualbox.customize ["modifyvm", :id, "--vrde", "on"]
+      virtualbox.customize ["modifyvm", :id, "--vrdeport", "3392"]
+    end
 
     client.vm.provision "client dummy",
                         type: "shell",
