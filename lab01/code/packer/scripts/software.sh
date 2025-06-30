@@ -4,6 +4,7 @@
 sudo dnf -y update
 
 # Дополнительные репозитории
+sudo dnf config-manager --set-enabled crb
 sudo dnf -y install epel-release
 
 # Установка базовых пакетов
