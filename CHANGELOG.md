@@ -1,3 +1,23 @@
+# [2.0.0](https://github.com/yamadharma/net-os-admin-lab-code/compare/v1.0.2...v2.0.0) (2025-06-30)
+
+
+### Bug Fixes
+
+* **packer:** disable install virtualbox addition ([775ac8a](https://github.com/yamadharma/net-os-admin-lab-code/commit/775ac8acefc635ed04face9263b45df5fe1a6013))
+* **packer:** fix install kernel headers ([016d0d1](https://github.com/yamadharma/net-os-admin-lab-code/commit/016d0d170f2ff3f7bd05b965a236bfc9fc164a20))
+* **packer:** fix install virtualbox additions ([36a32d7](https://github.com/yamadharma/net-os-admin-lab-code/commit/36a32d7091415256b6e058e7f1ece14a04f6ebde))
+* **packer:** switch to headless virtualbox ([48fcbb6](https://github.com/yamadharma/net-os-admin-lab-code/commit/48fcbb65b5a9fe6ae6592675f637472c7c464501))
+* **vagrant:** set virtualbox headless ([f261186](https://github.com/yamadharma/net-os-admin-lab-code/commit/f261186e03d96df5b34dcf134400169a109d748d))
+
+
+### Features
+
+* **code:** move code to single directory ([25a3477](https://github.com/yamadharma/net-os-admin-lab-code/commit/25a3477eadcac63cc8fce598c55527f23f3dc865))
+* **git:** add new ignored files ([ac06d15](https://github.com/yamadharma/net-os-admin-lab-code/commit/ac06d152e6d4aeb0447ef846bf47613d86f52797))
+* **packer:** update to Rocky Linux 10.0 ([b8c959e](https://github.com/yamadharma/net-os-admin-lab-code/commit/b8c959eed1fb1c7acae5c53be8d6eea1c85c8b5a))
+
+
+
 ## [1.0.2](https://github.com/yamadharma/net-os-admin-lab-code/compare/v1.0.1...v1.0.2) (2024-09-26)
 
 
