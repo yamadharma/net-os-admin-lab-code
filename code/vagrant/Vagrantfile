@@ -1,0 +1,114 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+
+  config.vagrant.plugins = "vagrant-libvirt"
+  config.vagrant.plugins = "vagrant-vbguest"
+
+  config.vm.provider :virtualbox do |virtualbox|
+    virtualbox.linked_clone = true
+    # Customize the amount of memory on the VM
+    virtualbox.memory = 2048
+    virtualbox.cpus = 2
+    ## Display the VirtualBox GUI when booting the machine
+    virtualbox.gui = false
+    ## Set the video memory to 12Mb
+    virtualbox.customize ["modifyvm", :id, "--vram", "32"]
+    virtualbox.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+    virtualbox.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
+    virtualbox.customize ["modifyvm", :id, "--draganddrop", "bidirectional"]
+    virtualbox.customize ["modifyvm", :id, "--graphicscontroller", "vmsvga"]
+    virtualbox.customize ["modifyvm", :id, "--accelerate3d", "on"]
+    virtualbox.customize ["modifyvm", :id, "--nested-hw-virt", "on"]
+  end
+
+  config.vm.provider :libvirt do |libvirt|
+    libvirt.driver = "kvm"
+    libvirt.memory = 2048
+    libvirt.cpus = 2
+    libvirt.video_type = "virtio"
+    libvirt.disk_bus = "virtio"
+    libvirt.nic_model_type = "virtio"
+    libvirt.management_network_name = "vagrant-libvirt"
+    libvirt.management_network_address = "192.168.121.0/24"
+    libvirt.storage_pool_name = "vagrant"
+    # libvirt.storage_pool_name = "default"
+  end
+
+  ## Common configuration
+  config.vm.provision "common dummy",
+                      type: "shell",
+                      preserve_order: true,
+                      path: "provision/default/01-dummy.sh"
+
+  config.vm.provision "common hostname",
+                      type: "shell",
+                      preserve_order: true,
+                      run: "always",
+                      path: "provision/default/01-hostname.sh"
+
+  config.vm.provision "common user",
+                      type: "shell",
+                      preserve_order: true,
+                      path: "provision/default/01-user.sh"
+
+  ## Server configuration
+  config.vm.define "server", autostart: false do |server|
+    server.vm.box = "rockylinux10"
+    server.vm.hostname = 'server'
+
+    server.vm.boot_timeout = 1440
+
+    server.ssh.insert_key = false
+    server.ssh.username = 'vagrant'
+    server.ssh.password = 'vagrant'
+
+    server.vm.network :private_network,
+                      ip: "192.168.1.1",
+                      virtualbox__intnet: true
+
+    server.vm.provider :virtualbox do |virtualbox|
+      virtualbox.customize ["modifyvm", :id, "--vrde", "on"]
+      virtualbox.customize ["modifyvm", :id, "--vrdeport", "3391"]
+    end
+
+    server.vm.provision "server dummy",
+                        type: "shell",
+                        preserve_order: true,
+                        path: "provision/server/01-dummy.sh"
+
+  end
+
+  ## Client configuration
+  config.vm.define "client", autostart: false do |client|
+    client.vm.box = "rockylinux10"
+    client.vm.hostname = 'client'
+
+    client.vm.boot_timeout = 1440
+
+    client.ssh.insert_key = false
+    client.ssh.username = 'vagrant'
+    client.ssh.password = 'vagrant'
+
+    client.vm.network :private_network,
+                      type: "dhcp",
+                      virtualbox__intnet: true
+
+    client.vm.provider :virtualbox do |virtualbox|
+      virtualbox.customize ["modifyvm", :id, "--vrde", "on"]
+      virtualbox.customize ["modifyvm", :id, "--vrdeport", "3392"]
+    end
+
+    client.vm.provision "client dummy",
+                        type: "shell",
+                        preserve_order: true,
+                        path: "provision/client/01-dummy.sh"
+
+    client.vm.provision "client routing",
+                        type: "shell",
+                        preserve_order: true,
+                        run: "always",
+                        path: "provision/client/01-routing.sh"
+  end
+end

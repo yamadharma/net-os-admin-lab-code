@@ -178,3 +178,14 @@ tramp
 # cask packages
 .cask/
 
+## local
+*.iso
+*.box
+*.vdi
+plugins
+.vagrant/
+.vagrant.d/
+.vbox/
+.config/
+vm/
+
