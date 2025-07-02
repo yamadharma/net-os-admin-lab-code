@@ -105,15 +105,15 @@ source "qemu" "rockylinux" {
   firmware               = "/usr/share/edk2-ovmf/OVMF_CODE.fd" # UEFI вместо BIOS. Проверьте местоположение
 
   # Настройки видео
-  # vga              = "virtio" # Для virtio-vga
+  vga              = "virtio" # Для virtio-vga
 
-  # Дополнительные флаги процессора
+  ## Дополнительные флаги процессора
   qemuargs = [
     ["-device", "qemu-xhci"], # Виртуализированные USB-контроллеры
     ["-device", "virtio-tablet"], # Устройства ввода
-    # GPU-passthrough
-    ["-device", "virtio-gpu-pci"], #  3D-акселерация через VirGL
-    ["-vga", "none"]
+    ## GPU-passthrough
+    # ["-device", "virtio-gpu-pci"], #  3D-акселерация через VirGL
+    # ["-vga", "none"]
   ]
 }
 
@@ -153,7 +153,9 @@ source "virtualbox-iso" "rockylinux" {
     [ "modifyvm", "{{.Name}}", "--memory", "2048" ],
     [ "modifyvm", "{{.Name}}", "--cpus", "2" ],
     [ "modifyvm", "{{.Name}}", "--nat-localhostreachable1", "on" ],
-    [ "modifyvm", "{{.Name}}", "--firmware", "EFI" ]
+    [ "modifyvm", "{{.Name}}", "--firmware", "EFI" ],
+    ["modifyvm", "{{.Name}}", "--vrde", "on"],
+    ["modifyvm", "{{.Name}}", "--vrdeport", "3390"]
   ]
   virtualbox_version_file = ".vbox_version"
   vm_name                 = "rockylinux${var.redhat_release}-virtualbox"
