@@ -1,3 +1,12 @@
+## [2.0.1](https://github.com/yamadharma/net-os-admin-lab-code/compare/v2.0.0...v2.0.1) (2025-07-02)
+
+
+### Bug Fixes
+
+* **packer:** set port fo RDP for virtualbox ([d532945](https://github.com/yamadharma/net-os-admin-lab-code/commit/d5329453602fc79c753ad2cadc301bbfd517fd03))
+
+
+
 # [2.0.0](https://github.com/yamadharma/net-os-admin-lab-code/compare/v1.0.2...v2.0.0) (2025-06-30)
 
 
