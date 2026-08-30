@@ -1,3 +1,10 @@
+## [2.0.2](https://github.com/yamadharma/net-os-admin-lab-code/compare/v2.0.1...v2.0.2) (2026-08-30)
+
+### Bug Fixes
+
+* **main:** add gitignore to subdirs ([b429478](https://github.com/yamadharma/net-os-admin-lab-code/commit/b429478d911f65469ad3ee93c7badb5eb760f364))
+* **script:** switch to rocky linux 10.2 ([3416ee8](https://github.com/yamadharma/net-os-admin-lab-code/commit/3416ee8354db86edf9669486f68bd8135d7ff876))
+
 ## [2.0.1](https://github.com/yamadharma/net-os-admin-lab-code/compare/v2.0.0...v2.0.1) (2025-07-02)
 
 
