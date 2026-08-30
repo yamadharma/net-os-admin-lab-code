@@ -1,0 +1,9 @@
+*.iso
+*.box
+*.vdi
+plugins
+.vagrant/
+.vagrant.d/
+.vbox/
+.config/
+vm/
