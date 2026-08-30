@@ -17,12 +17,12 @@ packer {
 
 variable "artifact_description" {
   type    = string
-  default = "Rocky 10.0"
+  default = "Rocky 10.2"
 }
 
 variable "artifact_version" {
   type    = string
-  default = "10.0"
+  default = "10.2"
 }
 
 variable "disk_size" {
@@ -32,7 +32,7 @@ variable "disk_size" {
 
 variable "iso_checksum" {
   type    = string
-  default = "de75c2f7cc566ea964017a1e94883913f066c4ebeb1d356964e398ed76cadd12"
+  default = "aac6ac3ce781b91a91ce78463405f66c611a5dca4b3840c79e5e01d97302f6c8"
 }
 
 variable "iso_checksum_type" {
@@ -42,8 +42,8 @@ variable "iso_checksum_type" {
 
 variable "iso_url" {
   type    = string
-  # default = "https://download.rockylinux.org/pub/rocky/10/isos/x86_64/Rocky-10.0-x86_64-minimal.iso"
-  default = "Rocky-10.0-x86_64-minimal.iso"
+  # default = "https://download.rockylinux.org/pub/rocky/10/isos/x86_64/Rocky-10.2-x86_64-minimal.iso"
+  default = "Rocky-10.2-x86_64-minimal.iso"
 }
 
 variable "redhat_platform" {
