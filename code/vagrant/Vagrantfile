@@ -95,6 +95,7 @@ Vagrant.configure("2") do |config|
 
     client.vm.network :private_network,
                       type: "dhcp",
+                      auto_config: false, # DHCP-сервер появляется в лабе 3; eth1 настраивает provision/client/01-routing.sh
                       virtualbox__intnet: true
 
     client.vm.provider :virtualbox do |virtualbox|
