@@ -5,10 +5,9 @@ echo "Provisioning script $0"
 username=user
 userpassword=123456
 
-encpassword=`openssl passwd -1 ${userpassword}`
+encpassword=`openssl passwd -6 ${userpassword}`
 
-id -u $username
-if [[ $? ]]
+if ! id -u "$username" >/dev/null 2>&1
 then
     adduser -G wheel -p ${encpassword} ${username}
     homedir=`getent passwd ${username} | cut -d: -f6`
