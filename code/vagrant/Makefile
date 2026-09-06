@@ -1,3 +1,4 @@
+SHELL := /bin/bash
 ## Конфигурация
 BOX_NAME := rockylinux10
 VAGRANT_FILE ?= Vagrantfile
