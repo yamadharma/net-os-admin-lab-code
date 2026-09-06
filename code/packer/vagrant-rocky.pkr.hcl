@@ -179,6 +179,7 @@ build {
 
   provisioner "shell" {
     script         = "scripts/cleanup.sh"
+    execute_command = "echo 'packer'|{{ .Vars }} sudo -S -E bash '{{ .Path }}'"
   }
 
   post-processor "vagrant" {
