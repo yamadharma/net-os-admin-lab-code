@@ -8,6 +8,10 @@ SHELL := /bin/bash
 # Получение текущего каталога
 CURDIR := $(realpath .)
 
+TMPDIR := $(shell [ -d /var/tmp ] && [ -w /var/tmp ] && printf '%s' /var/tmp)
+TMPDIR := $(if $(TMPDIR),$(TMPDIR),$(CURDIR))
+export TMPDIR
+
 init: ## Install missing plugins for packer
 	@mkdir -p "$(CURDIR)""/.config/packer/plugins"
 	@export PACKER_CONFIG_DIR="$(CURDIR)""/.config/packer"; export PACKER_PLUGIN_PATH="$(CURDIR)""/.config/packer/plugins"; packer init vagrant-rocky.pkr.hcl
@@ -15,11 +19,11 @@ init: ## Install missing plugins for packer
 virtualbox:	init    ## Build Rocky Linux box for Virtualbox
 	-@VBoxManage setproperty language C
 	-@VBoxManage setproperty machinefolder "$(CURDIR)"/vm
-	-@export TMPDIR="$(CURDIR)"; export PACKER_CONFIG_DIR="$(CURDIR)""/.config/packer"; export PACKER_PLUGIN_PATH="$(CURDIR)""/.config/packer/plugins"; packer build -only=virtualbox-iso.rockylinux vagrant-rocky.pkr.hcl
+	-@export PACKER_CONFIG_DIR="$(CURDIR)""/.config/packer"; export PACKER_PLUGIN_PATH="$(CURDIR)""/.config/packer/plugins"; packer build -only=virtualbox-iso.rockylinux vagrant-rocky.pkr.hcl
 	-@VBoxManage setproperty machinefolder default
 
 qemu:	init    ## Build Rocky Linux box for Qemu
-	-@export TMPDIR="$(CURDIR)"; export PACKER_CONFIG_DIR="$(CURDIR)""/.config/packer"; export PACKER_PLUGIN_PATH="$(CURDIR)""/.config/packer/plugins"; packer build -only=qemu.rockylinux vagrant-rocky.pkr.hcl
+	-@export PACKER_CONFIG_DIR="$(CURDIR)""/.config/packer"; export PACKER_PLUGIN_PATH="$(CURDIR)""/.config/packer/plugins"; packer build -only=qemu.rockylinux vagrant-rocky.pkr.hcl
 
 help:
 	@echo 'Usage:'
