@@ -6,7 +6,7 @@ curl -o /home/vagrant/.ssh/authorized_keys -kL 'https://raw.github.com/mitchellh
 chown vagrant:vagrant /home/vagrant/.ssh/authorized_keys
 chmod 600 /home/vagrant/.ssh/authorized_keys
 
-cat <<'EOF' > /home/vagrant/.bash_profile
+cat <<'EOF' >/home/vagrant/.bash_profile
 [ -f ~/.bashrc ] && . ~/.bashrc
 export PATH=$PATH:/sbin:/usr/sbin:$HOME/bin
 EOF

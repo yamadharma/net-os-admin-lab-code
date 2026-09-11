@@ -178,6 +178,7 @@ build {
   }
 
   provisioner "shell" {
+    execute_command = "echo 'packer'|{{ .Vars }} sudo -S -E bash '{{ .Path }}'"
     script         = "scripts/cleanup.sh"
   }
 
