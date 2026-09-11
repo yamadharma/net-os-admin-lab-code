@@ -1,3 +1,15 @@
+## [2.0.3](https://github.com/yamadharma/net-os-admin-lab-code/compare/v2.0.2...v2.0.3) (2026-09-11)
+
+### Bug Fixes
+
+* **makefile:** add support Ubuntu/Debian ([d4d8909](https://github.com/yamadharma/net-os-admin-lab-code/commit/d4d89099c21da74e8a631127b4921a1118fdbeed))
+* **packer:** fix cleanup.sh ([d264973](https://github.com/yamadharma/net-os-admin-lab-code/commit/d264973fcd452d61c67751d4b296b41cba2cd15f))
+* **packer:** fix TMPDIR in Makefile ([19061df](https://github.com/yamadharma/net-os-admin-lab-code/commit/19061df981fac57dc49a561623121fb31e135e32))
+* **packer:** remove ifcfg-eth0 from kickstart ([80fba17](https://github.com/yamadharma/net-os-admin-lab-code/commit/80fba17067962f05b2ec8dc4b902c6583ac85833))
+* **script:** fix add user ([9960c48](https://github.com/yamadharma/net-os-admin-lab-code/commit/9960c486926376a107bb91b9bef6a50b3b73b775))
+* **script:** fix script for client routing ([c06ae96](https://github.com/yamadharma/net-os-admin-lab-code/commit/c06ae962eab7d84675609ad94330289d2c7c0eb3))
+* **vagrant:** disable load libvirt plugin on Windows ([5bddde7](https://github.com/yamadharma/net-os-admin-lab-code/commit/5bddde71428deb61dc6f9f9e7cd295139e07b323))
+
 ## [2.0.2](https://github.com/yamadharma/net-os-admin-lab-code/compare/v2.0.1...v2.0.2) (2026-08-30)
 
 ### Bug Fixes
