@@ -1,3 +1,5 @@
+SHELL := /bin/bash
+
 # Цели по умолчанию
 .DEFAULT_GOAL := help
 
