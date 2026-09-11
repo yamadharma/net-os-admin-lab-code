@@ -1,17 +1,17 @@
 #!/bin/sh
 
-dnf -y clean all
+sudo dnf -y clean all
 
 # Remove Virtualbox specific files
-rm -rf /usr/src/vboxguest* /usr/src/virtualbox-ose-guest*
-rm -rf *.iso *.iso.? /tmp/vbox /home/vagrant/.vbox_version
+sudo rm -rf /usr/src/vboxguest* /usr/src/virtualbox-ose-guest*
+sudo rm -rf *.iso *.iso.? /tmp/vbox /home/vagrant/.vbox_version
 
 # Cleanup log files
-find /var/log -type f | while read f; do echo -ne '' > $f; done;
+sudo find /var/log -type f | while read f; do echo -ne '' >$f; done
 
 # remove under tmp directory
-rm -rf /tmp/*
+sudo rm -rf /tmp/*
 
 # zero out empty space
-dd if=/dev/zero of=/EMPTY bs=1M
-rm -rf /EMPTY
+sudo dd if=/dev/zero of=/EMPTY bs=1M
+sudo rm -rf /EMPTY
